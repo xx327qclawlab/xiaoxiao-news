@@ -24,3 +24,5 @@ wheels/
 .env
 .vscode/
 .idea/
+
+.vercel

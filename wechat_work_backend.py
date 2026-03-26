@@ -221,29 +221,21 @@ def health_check():
 def wechat_callback():
     """企业微信回调接口"""
     if request.method == 'GET':
-        # 验证服务器 - GET 请求用于回调地址验证
+        # 验证服务器 - 企业微信会发送 GET 请求来验证
         signature = request.args.get('signature', '')
+        msg_signature = request.args.get('msg_signature', '')
         timestamp = request.args.get('timestamp', '')
         nonce = request.args.get('nonce', '')
         echostr = request.args.get('echostr', '')
         
-        # 验证签名
+        # 验证签名: sort([token, timestamp, nonce]) -> sha1
         data = sorted([TOKEN, timestamp, nonce])
         sha1 = hashlib.sha1(''.join(data).encode('utf-8')).hexdigest()
         
-        if sha1 == signature:
-            # 解密并返回 echostr
-            try:
-                from Crypto.Cipher import AES
-                from Crypto.Util.Padding import unpad
-                encrypted = base64.b64decode(echostr)
-                aes_key = base64.b64decode(ENCODING_AES_KEY + '=')
-                cipher = AES.new(aes_key, AES.MODE_CBC, encrypted[:16])
-                decrypted = unpad(cipher.decrypt(encrypted[16:]), 32)
-                return decrypted[16:].decode('utf-8')
-            except:
-                return echostr
-        return 'signature failed'
+        # 企业微信用 signature 字段验证
+        if sha1 == signature or sha1 == msg_signature:
+            return echostr
+        return 'signature mismatch: {} vs {}'.format(sha1, signature)
     
     elif request.method == 'POST':
         # 处理消息

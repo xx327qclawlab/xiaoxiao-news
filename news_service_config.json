@@ -1,0 +1,45 @@
+{
+  "service_name": "小小新闻简报",
+  "version": "1.0.0",
+  "description": "为小学五年级孩子定制的新闻阅读小程序",
+  "categories": [
+    "时政",
+    "科技",
+    "体育",
+    "教育",
+    "军事",
+    "娱乐",
+    "健康",
+    "环保"
+  ],
+  "api_schema": {
+    "endpoints": {
+      "GET /api/news": "获取所有新闻",
+      "GET /api/news/category/:cat": "按分类获取新闻",
+      "GET /api/news/search": "搜索新闻",
+      "GET /api/categories": "获取所有分类",
+      "POST /api/news/:id/like": "点赞新闻",
+      "POST /api/news/:id/view": "浏览新闻",
+      "POST /api/user/preference": "设置用户偏好",
+      "GET /api/user/personalized": "获取个性化新闻"
+    },
+    "categories": [
+      "时政",
+      "科技",
+      "体育",
+      "教育",
+      "军事",
+      "娱乐",
+      "健康",
+      "环保"
+    ]
+  },
+  "features": [
+    "实时新闻更新",
+    "多分类浏览",
+    "个性化推荐",
+    "新闻搜索",
+    "点赞收藏",
+    "定时推送"
+  ]
+}

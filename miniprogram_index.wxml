@@ -1,0 +1,59 @@
+<!-- 小小新闻简报 - 首页 -->
+<!-- pages/index/index.wxml -->
+
+<view class="container">
+  <!-- 顶部导航 -->
+  <view class="header">
+    <text class="title">小小新闻简报</text>
+    <text class="subtitle">为小学五年级定制</text>
+  </view>
+
+  <!-- 分类标签 -->
+  <scroll-view class="category-scroll" scroll-x>
+    <view class="category-list">
+      <view wx:for="{{categories}}" wx:key="*this" 
+            class="category-tag {{selectedCategory === item ? 'active' : ''}}"
+            bindtap="selectCategory" data-category="{{item}}">
+        {{item}}
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 新闻列表 -->
+  <scroll-view class="news-list" scroll-y bindscrolltolower="loadMore">
+    <view wx:for="{{newsList}}" wx:key="id" class="news-item" bindtap="viewNews" data-id="{{item.id}}">
+      <!-- 新闻图片 -->
+      <image class="news-image" src="{{item.image_url}}" mode="aspectFill"></image>
+      
+      <!-- 新闻内容 -->
+      <view class="news-content">
+        <text class="news-title">{{item.title}}</text>
+        <text class="news-snippet">{{item.snippet}}</text>
+        
+        <!-- 新闻元数据 -->
+        <view class="news-meta">
+          <text class="source">📰 {{item.source}}</text>
+          <text class="time">{{item.timestamp}}</text>
+        </view>
+        
+        <!-- 互动按钮 -->
+        <view class="news-actions">
+          <view class="action-btn" bindtap="likeNews" data-id="{{item.id}}">
+            <text>👍 {{item.likes}}</text>
+          </view>
+          <view class="action-btn" bindtap="shareNews" data-id="{{item.id}}">
+            <text>分享</text>
+          </view>
+          <view class="action-btn" bindtap="collectNews" data-id="{{item.id}}">
+            <text>收藏</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 加载提示 -->
+  <view wx:if="{{loading}}" class="loading">
+    <text>加载中...</text>
+  </view>
+</view>

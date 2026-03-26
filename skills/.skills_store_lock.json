@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "skills": {
+    "image-gen": {
+      "name": "Image Gen",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=image-gen",
+      "source": "skillhub",
+      "version": "2.0.1"
+    },
+    "ai-image-generation": {
+      "name": "Ai Image Generation",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=ai-image-generation",
+      "source": "skillhub",
+      "version": "0.1.5"
+    },
+    "video-generation": {
+      "name": "AI Video Generation",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=video-generation",
+      "source": "skillhub",
+      "version": "1.0.1"
+    },
+    "seedance-2-video-gen": {
+      "name": "Seedance 2 Video Generation",
+      "zip_url": "https://lightmake.site/api/v1/download?slug=seedance-2-video-gen",
+      "source": "skillhub",
+      "version": "1.4.1"
+    }
+  }
+}

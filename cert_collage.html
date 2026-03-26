@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>国际化课程与专业建设成果展</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            padding: 40px;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        .container {
+            max-width: 1900px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .header::before,
+        .header::after {
+            content: '◆';
+            color: #d4af37;
+            font-size: 24px;
+            vertical-align: middle;
+            margin: 0 20px;
+        }
+        .school-name {
+            font-size: 52px;
+            font-weight: bold;
+            color: #f5f5f5;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+            letter-spacing: 8px;
+        }
+        .subtitle {
+            font-size: 28px;
+            color: #b8c5d6;
+            margin-top: 10px;
+            letter-spacing: 12px;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 30px;
+            padding: 20px;
+        }
+        .cert-card {
+            position: relative;
+            transform-style: preserve-3d;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        .cert-card:hover {
+            transform: translateY(-20px) scale(1.05) rotate(0deg) !important;
+            z-index: 100 !important;
+        }
+        .cert-card:nth-child(odd) {
+            transform: rotate(var(--rotate));
+        }
+        .cert-card:nth-child(even) {
+            transform: rotate(calc(var(--rotate) * -1));
+        }
+        .cert-img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 
+                8px 8px 20px rgba(0,0,0,0.4),
+                -2px -2px 10px rgba(255,255,255,0.1);
+            border: 3px solid rgba(255,255,255,0.2);
+            background: white;
+            padding: 8px;
+        }
+        .ribbon {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #1a1a2e;
+            font-weight: bold;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #8899aa;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="school-name">成都工业学院</div>
+            <div class="subtitle">国际化课程与专业建设成果展</div>
+        </div>
+        
+        <div class="gallery" id="gallery">
+            <!-- 证书将通过JS动态插入 -->
+        </div>
+        
+        <div class="footer">
+            <p>🏆 累计获得国际认证课程证书 15+ 项 | 合作院校覆盖 8 个国家和地区 🌍</p>
+        </div>
+    </div>
+
+    <script>
+        const certDir = 'C:\\\\qclaw_temp\\\\certificates';
+        
+        // 证书文件列表（从目录读取）
+        const certFiles = [
+            'cert1.png', 'cert2.png', 'cert3.png', 'cert4.png', 'cert5.png',
+            'cert6.png', 'cert7.png', 'cert8.png', 'cert9.png', 'cert10.png',
+            'cert11.png', 'cert12.png'
+        ];
+        
+        const rotations = [8, -6, 10, -12, 5, -8, 12, -5, 7, -10, 6, -7];
+        const medals = ['🏆', '🌟', '🎓', '📜', '🎖️', '⭐', '🏅', '🎯', '🌐', '🎪', '🏵️', '💎'];
+        
+        const gallery = document.getElementById('gallery');
+        
+        certFiles.forEach((file, index) => {
+            const card = document.createElement('div');
+            card.className = 'cert-card';
+            card.style.setProperty('--rotate', rotations[index % rotations.length] + 'deg');
+            card.style.marginTop = (index * 15) + 'px';
+            card.style.zIndex = index;
+            
+            const img = document.createElement('img');
+            img.className = 'cert-img';
+            img.src = certDir + '\\\\' + file;
+            img.alt = '证书 ' + (index + 1);
+            img.onerror = function() {
+                // 如果图片不存在，使用占位符
+                this.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                this.style.minHeight = '200px';
+                this.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 150"><rect fill="%23f5f5f5" width="200" height="150" rx="5"/><text x="100" y="80" text-anchor="middle" fill="%23999" font-size="14">证书 ' + (index+1) + '</text></svg>';
+            };
+            
+            const ribbon = document.createElement('div');
+            ribbon.className = 'ribbon';
+            ribbon.textContent = medals[index % medals.length];
+            
+            card.appendChild(ribbon);
+            card.appendChild(img);
+            gallery.appendChild(card);
+        });
+    </script>
+</body>
+</html>
